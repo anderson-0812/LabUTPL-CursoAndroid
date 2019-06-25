@@ -1,6 +1,7 @@
 package com.jeeps.laboratorioutpl.model.access;
 
 import com.google.gson.annotations.SerializedName;
+import com.jeeps.laboratorioutpl.model.Sala;
 
 public class AccessWithRoom {
     @SerializedName("_id")
@@ -8,7 +9,7 @@ public class AccessWithRoom {
     private String date;
     private String hour;
     private String user;
-//    private Sala sala;
+    private Sala sala;
     private String typeAccess;
 
     public String getId() {
@@ -43,13 +44,13 @@ public class AccessWithRoom {
         this.user = user;
     }
 
-    /*public Sala getSala() {
+    public Sala getSala() {
         return sala;
     }
 
     public void setSala(Sala sala) {
         this.sala = sala;
-    }*/
+    }
 
     public String getTypeAccess() {
         return typeAccess;
