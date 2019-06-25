@@ -151,6 +151,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        nameTextView.setText(String.format("%s, %s",
+                getString(R.string.welcome_message), loggedUserName));
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -165,7 +172,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            // Delete saved preferences
+            editor = sharedPreferences.edit();
+            editor.remove(getString(R.string.logged_user_id));
+            editor.remove(getString(R.string.logged_user_token));
+            editor.apply();
+            // Start login activity
+            startLoginActivity();
             return true;
         }
 
