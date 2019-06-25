@@ -1,9 +1,10 @@
-package com.jeeps.laboratorioutpl;
+package com.jeeps.laboratorioutpl.ui;
 
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.jeeps.laboratorioutpl.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
