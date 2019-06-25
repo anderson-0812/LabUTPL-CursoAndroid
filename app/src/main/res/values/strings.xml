@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">LaboratorioUTPL-CursoAndroid</string>
     <string name="action_settings">Settings</string>
+    <string name="logged_user_id">LOGGED_USER_ID</string>
+    <string name="logged_user_token">LOGGED_USER_TOKEN</string>
+    <string name="preference_file_key">com.jeeps.laboratorioutpl.PREFERENCE_FILE_KEY</string>
 </resources>
