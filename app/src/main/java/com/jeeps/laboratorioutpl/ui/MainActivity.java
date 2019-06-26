@@ -9,7 +9,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.jeeps.laboratorioutpl.R;
 import com.jeeps.laboratorioutpl.adapters.AccessAdapter;
+import com.jeeps.laboratorioutpl.dialogs.InvalidAccessDialog;
 import com.jeeps.laboratorioutpl.model.access.AccessResult;
+import com.jeeps.laboratorioutpl.model.access.RegisterAccess;
+import com.jeeps.laboratorioutpl.model.access.RegisterResult;
 import com.jeeps.laboratorioutpl.model.user.UserDB;
 import com.jeeps.laboratorioutpl.service.AccessService;
 import com.jeeps.laboratorioutpl.service.RetrofitClient;
@@ -55,13 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(view -> startQrScanner());
 
         // Initialize shared preferences
         sharedPreferences = getSharedPreferences(
@@ -76,7 +73,15 @@ public class MainActivity extends AppCompatActivity {
         userService = RetrofitClient.getRetrofitInstance().create(UserService.class);
         accessService = RetrofitClient.getRetrofitInstance().create(AccessService.class);
 
-        login();
+        // Get intent from QR code scan
+        Intent intent = getIntent();
+        String qrCodeResult = intent.getStringExtra(QrScannerActivity.QR_CODE_RESULT);
+
+        // Check if we are receiving a QR code from the scanner
+        if (qrCodeResult == null)
+            login();
+        else
+            registerAccess(qrCodeResult);
     }
 
     private void login() {
@@ -148,6 +153,34 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void registerAccess(String sala) {
+        RegisterAccess registerAccess = new RegisterAccess();
+        registerAccess.setSala(sala);
+        registerAccess.setUser(userId);
+        Call<RegisterResult> call = accessService.postAccess(userToken, registerAccess);
+        call.enqueue(new Callback<RegisterResult>() {
+            @Override
+            public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+                if (response.body() == null) {
+                    InvalidAccessDialog invalidAccessDialog = new InvalidAccessDialog();
+                    invalidAccessDialog.show(getSupportFragmentManager(), "AcceptDialog");
+                } else
+                    Snackbar.make(fab, "Registrado correctamente", Snackbar.LENGTH_SHORT).show();
+                populateAccessList();
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResult> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void startQrScanner() {
+        Intent intent = new Intent(this, QrScannerActivity.class);
+        startActivity(intent);
     }
 
     @Override
