@@ -24,6 +24,13 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="SecondaryThemeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="EditTextStyle">
         <item name="android:backgroundTint">#00a587</item>
         <item name="android:textColor">@android:color/white</item>

@@ -14,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.QrScannerActivity"></activity>
+        <activity android:name=".ui.EditProfileActivity"
+            android:theme="@style/SecondaryThemeActionBar"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.QrScannerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.LoginActivity"
             android:screenOrientation="portrait"
@@ -22,7 +27,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

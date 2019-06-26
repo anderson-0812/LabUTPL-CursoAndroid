@@ -7,4 +7,5 @@
     <string name="logged_user_name">LOGGED_USER_NAME</string>
     <string name="welcome_message">Bienvenido</string>
     <string name="action_logout">Cerrar sesión</string>
+    <string name="action_edit_profile">Editar perfil</string>
 </resources>

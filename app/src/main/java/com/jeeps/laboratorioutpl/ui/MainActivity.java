@@ -37,6 +37,9 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String USER_ID_EXTRA = "USER_ID";
+    public static final String USER_TOKEN_EXTRA = "USER_TOKEN";
+
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.nameText) TextView nameTextView;
     @BindView(R.id.acccessRegistryRecyclerView) RecyclerView accessRecyclerView;
@@ -214,6 +217,12 @@ public class MainActivity extends AppCompatActivity {
             // Start login activity
             startLoginActivity();
             return true;
+        } else if (id == R.id.action_profile){
+            // Pass the user id to the edit profile page
+            Intent intent = new Intent(this, EditProfileActivity.class);
+            intent.putExtra(USER_ID_EXTRA, userId);
+            intent.putExtra(USER_TOKEN_EXTRA, userToken);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
