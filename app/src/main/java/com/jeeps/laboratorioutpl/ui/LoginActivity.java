@@ -6,8 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jeeps.laboratorioutpl.R;
 import com.jeeps.laboratorioutpl.model.Login;
@@ -57,8 +60,15 @@ public class LoginActivity extends AppCompatActivity {
                 // Store id and token to saved preferences to maintain user logged in
                 Login login = response.body();
                 if (login != null)
-                    if (login.getUsuario() != null)
+                    if (login.getUsuario() != null) {
                         storeLogin(login.getUsuario().getId(), login.getToken());
+                        Toast mensajet = Toast.makeText(getApplicationContext()
+                                ,"Te has logeado"
+                                ,Toast.LENGTH_SHORT);
+//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+                        mensajet.show();
+                        Log.d("CREATION","Logeado");
+                    }
                     else
                         badLoginText.setVisibility(View.VISIBLE);
                 else
