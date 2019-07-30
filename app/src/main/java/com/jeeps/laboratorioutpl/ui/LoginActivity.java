@@ -67,7 +67,9 @@ public class LoginActivity extends AppCompatActivity {
                                 ,Toast.LENGTH_SHORT);
 //                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
                         mensajet.show();
-                        Log.d("CREATION","Logeado");
+                        Log.d("CREATION","Estas logeado");
+
+                        MainActivity.first_access = "1";
                     }
                     else
                         badLoginText.setVisibility(View.VISIBLE);

@@ -23,11 +23,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String USER_ID_EXTRA = "USER_ID";
     public static final String USER_TOKEN_EXTRA = "USER_TOKEN";
+    public static String first_access = "0";
 
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.nameText) TextView nameTextView;
@@ -79,12 +82,20 @@ public class MainActivity extends AppCompatActivity {
         // Get intent from QR code scan
         Intent intent = getIntent();
         String qrCodeResult = intent.getStringExtra(QrScannerActivity.QR_CODE_RESULT);
-
+//        Log.d("dep",qrCodeResult) ;
+        Toast mensajet = Toast.makeText(getApplicationContext()
+                ,qrCodeResult
+                ,Toast.LENGTH_SHORT);
+//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+        mensajet.show();
+//        Log.d("CREATION","Estas logeado");
         // Check if we are receiving a QR code from the scanner
-        if (qrCodeResult == null)
+        if (qrCodeResult == null && first_access == "0")
             login();
-        else
+        else {
             registerAccess(qrCodeResult);
+//            populateAccessList();
+        }
     }
 
     private void login() {
@@ -95,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<UserDB> call, Response<UserDB> response) {
                 // Proceed if credentials are valid
                 if (response.body() != null) {
+                    Toast mensajet = Toast.makeText(getApplicationContext()
+                            ,"Logeadooo"
+                            ,Toast.LENGTH_SHORT);
+//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+                    mensajet.show();
                     Snackbar.make(fab, getString(R.string.welcome_message), Snackbar.LENGTH_SHORT).show();
                     // Save logged name
                     String firstName = response.body().getUsuarioDB().getFirstName();
@@ -134,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     // Handle bad requests
                     if (response.body() != null) {
+//                        Log.d("CREATION","Estas logeado");
+
                         // Handle empty array
                         if (response.body().getPermisoDB() != null) {
                             AccessAdapter adapter = new AccessAdapter(response.body().getPermisoDB(),
@@ -166,11 +184,28 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<RegisterResult>() {
             @Override
             public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
+                Toast mensaje = Toast.makeText(getApplicationContext()
+                        ,response.body().toString()
+                        ,Toast.LENGTH_SHORT);
+//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+                mensaje.show();
+
+                TextView prueba = (TextView) findViewById(R.id.textView2);
+                prueba.setText(response.body().toString());
                 if (response.body() == null) {
+                    Log.d("registerAccess","Es nulo");
+
                     InvalidAccessDialog invalidAccessDialog = new InvalidAccessDialog();
                     invalidAccessDialog.show(getSupportFragmentManager(), "AcceptDialog");
-                } else
+                } else {
+                    Log.d("acc","No es nulo");
+                    Toast mensajet = Toast.makeText(getApplicationContext()
+                            ,"Esto no es nulo"
+                            ,Toast.LENGTH_SHORT);
+//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+                    mensajet.show();
                     Snackbar.make(fab, "Registrado correctamente", Snackbar.LENGTH_SHORT).show();
+                }
                 populateAccessList();
             }
 
