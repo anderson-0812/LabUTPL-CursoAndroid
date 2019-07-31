@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface AccessService {
-    @GET("/acceso/user/{user}")
+    @GET("/acceso/{user}")
     Call<AccessResult> getAccessList(@Header("Token") String token, @Path("user") String userId);
 
     @POST("/acceso")

@@ -150,6 +150,14 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     // Handle bad requests
                     if (response.body() != null) {
+                        Toast mensajet = Toast.makeText(getApplicationContext()
+                                ,"El listar no es nulo"
+                                ,Toast.LENGTH_SHORT);
+//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+                        mensajet.show();
+
+                        TextView prueba = (TextView) findViewById(R.id.textView2);
+                        prueba.setText(response.body().toString());
 //                        Log.d("CREATION","Estas logeado");
 
                         // Handle empty array
@@ -190,8 +198,6 @@ public class MainActivity extends AppCompatActivity {
 //                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
                 mensaje.show();
 
-                TextView prueba = (TextView) findViewById(R.id.textView2);
-                prueba.setText(response.body().toString());
                 if (response.body() == null) {
                     Log.d("registerAccess","Es nulo");
 

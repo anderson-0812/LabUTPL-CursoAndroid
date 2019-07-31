@@ -7,10 +7,10 @@ public class RetrofitClient {
     private static Retrofit retrofit;
 
 //    private static final String BASE_URL = "https://damp-hollows-96576.herokuapp.com";
-    private static final String BASE_URL = "http://172.16.14.219:3000"; // ip del suda
+//    private static final String BASE_URL = "http://172.16.14.219:3000"; // ip del suda
 
 //    private static final String BASE_URL = "http://localhost:3000/";
-//    private static final String BASE_URL = "http://192.168.0.107:3000/";
+    private static final String BASE_URL = "http://192.168.0.107:3000/"; // home
 //
 
     public static Retrofit getRetrofitInstance() {
