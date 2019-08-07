@@ -59,17 +59,19 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Login> call, Response<Login> response) {
                 // Store id and token to saved preferences to maintain user logged in
                 Login login = response.body();
+//                System.out.println("login PRUEBA call");
+//                System.out.println(login.getUsuario().getId());
+//                System.out.println("login PRUEBA FIN");
+
                 if (login != null)
                     if (login.getUsuario() != null) {
                         storeLogin(login.getUsuario().getId(), login.getToken());
                         Toast mensajet = Toast.makeText(getApplicationContext()
                                 ,"Te has logeado"
                                 ,Toast.LENGTH_SHORT);
-//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
                         mensajet.show();
-                        Log.d("CREATION","Estas logeado");
 
-                        MainActivity.first_access = "1";
+//                        MainActivity.first_access = "1";
                     }
                     else
                         badLoginText.setVisibility(View.VISIBLE);

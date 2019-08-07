@@ -83,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String qrCodeResult = intent.getStringExtra(QrScannerActivity.QR_CODE_RESULT);
 //        Log.d("dep",qrCodeResult) ;
-        Toast mensajet = Toast.makeText(getApplicationContext()
-                ,qrCodeResult
-                ,Toast.LENGTH_SHORT);
-//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
-        mensajet.show();
+//        Toast mensajet = Toast.makeText(getApplicationContext()
+//                ,qrCodeResult
+//                ,Toast.LENGTH_SHORT);
+////                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+//        mensajet.show();
 //        Log.d("CREATION","Estas logeado");
         // Check if we are receiving a QR code from the scanner
-        if (qrCodeResult == null && first_access == "0")
+        if (qrCodeResult == null /*&& first_access == "0" */)
             login();
         else {
             registerAccess(qrCodeResult);
@@ -105,15 +105,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserDB> call, Response<UserDB> response) {
                 // Proceed if credentials are valid
+//                Log.d(response.body().toString());
+
+                System.out.println("response");
+                System.out.println(response.body());
                 if (response.body() != null) {
-                    Toast mensajet = Toast.makeText(getApplicationContext()
-                            ,"Logeadooo"
-                            ,Toast.LENGTH_SHORT);
-//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
-                    mensajet.show();
+//                    Toast mensajet = Toast.makeText(getApplicationContext()
+//                            ,"Logeadooo"
+//                            ,Toast.LENGTH_SHORT);
+////                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+//                    mensajet.show();
                     Snackbar.make(fab, getString(R.string.welcome_message), Snackbar.LENGTH_SHORT).show();
                     // Save logged name
                     String firstName = response.body().getUsuarioDB().getFirstName();
+                    System.out.println("firstName");
+                    System.out.println(firstName);
                     editor = sharedPreferences.edit();
                     editor.putString(getString(R.string.logged_user_name), firstName);
                     editor.apply();
@@ -150,19 +156,19 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     // Handle bad requests
                     if (response.body() != null) {
-                        Toast mensajet = Toast.makeText(getApplicationContext()
-                                ,"El listar no es nulo"
-                                ,Toast.LENGTH_SHORT);
-//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
-                        mensajet.show();
-
-                        TextView prueba = (TextView) findViewById(R.id.textView2);
-                        prueba.setText(response.body().toString());
+//                        Toast mensajet = Toast.makeText(getApplicationContext()
+//                                ,"El listar no es nulo"
+//                                ,Toast.LENGTH_SHORT);
+////                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+//                        mensajet.show();
+//
+//                        TextView prueba = (TextView) findViewById(R.id.textView2);
+//                        prueba.setText(response.body().toString());
 //                        Log.d("CREATION","Estas logeado");
 
                         // Handle empty array
-                        if (response.body().getPermisoDB() != null) {
-                            AccessAdapter adapter = new AccessAdapter(response.body().getPermisoDB(),
+                        if (response.body().getAccesos() != null) {
+                            AccessAdapter adapter = new AccessAdapter(response.body().getAccesos(),
                                     MainActivity.this.getApplicationContext());
                             accessRecyclerView.setAdapter(adapter);
                             // Improve performance if layout size will not change
@@ -192,24 +198,24 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<RegisterResult>() {
             @Override
             public void onResponse(Call<RegisterResult> call, Response<RegisterResult> response) {
-                Toast mensaje = Toast.makeText(getApplicationContext()
-                        ,response.body().toString()
-                        ,Toast.LENGTH_SHORT);
-//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
-                mensaje.show();
+//                Toast mensaje = Toast.makeText(getApplicationContext()
+//                        ,response.body().toString()
+//                        ,Toast.LENGTH_SHORT);
+////                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+//                mensaje.show();
 
                 if (response.body() == null) {
-                    Log.d("registerAccess","Es nulo");
+//                    Log.d("registerAccess","Es nulo");
 
                     InvalidAccessDialog invalidAccessDialog = new InvalidAccessDialog();
                     invalidAccessDialog.show(getSupportFragmentManager(), "AcceptDialog");
                 } else {
-                    Log.d("acc","No es nulo");
-                    Toast mensajet = Toast.makeText(getApplicationContext()
-                            ,"Esto no es nulo"
-                            ,Toast.LENGTH_SHORT);
-//                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
-                    mensajet.show();
+//                    Log.d("acc","No es nulo");
+//                    Toast mensajet = Toast.makeText(getApplicationContext()
+//                            ,"Esto no es nulo"
+//                            ,Toast.LENGTH_SHORT);
+////                        mensajet.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+//                    mensajet.show();
                     Snackbar.make(fab, "Registrado correctamente", Snackbar.LENGTH_SHORT).show();
                 }
                 populateAccessList();

@@ -13,12 +13,15 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface UserService {
-    @GET("/usuario")
+    @GET("/usuarios")
+//    @GET("/users")
     Call<UserResult> getAllUsers(@Header("Token") String token);
 
-    @GET("/usuario/{user}")
+    @GET("/usuarios/{user}")
+//    @GET("/users/{user}")
     Call<UserDB> getUser(@Header("Token") String token, @Path("user") String userId);
 
-    @PUT("/usuario/{user}")
+    @PUT("/usuarios/{user}")
+//    @PUT("/users/{user}")
     Call<UserPutResult> putUser(@Header("Token") String token, @Path("user") String userId, @Body UserEdit access);
 }

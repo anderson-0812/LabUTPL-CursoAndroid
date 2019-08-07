@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AccessResult {
     private boolean ok;
-    private List<AccessWithRoom> permisoDB;
+    private List<AccessWithRoom> accesos;
 
     public boolean isOk() {
         return ok;
@@ -14,11 +14,11 @@ public class AccessResult {
         this.ok = ok;
     }
 
-    public List<AccessWithRoom> getPermisoDB() {
-        return permisoDB;
+    public List<AccessWithRoom> getAccesos() {
+        return accesos;
     }
 
-    public void setPermisoDB(List<AccessWithRoom> permisoDB) {
-        this.permisoDB = permisoDB;
+    public void setAccesos(List<AccessWithRoom> accesos) {
+        this.accesos = accesos;
     }
 }

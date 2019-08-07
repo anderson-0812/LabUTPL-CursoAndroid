@@ -11,7 +11,8 @@ public class RetrofitClient {
 
 //    private static final String BASE_URL = "http://localhost:3000/";
     private static final String BASE_URL = "http://192.168.0.107:3000/"; // home
-//
+//    private static final String BASE_URL = "http://172.17.147.20:3000/"; // UTPL
+
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
